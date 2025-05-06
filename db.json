@@ -1,0 +1,15 @@
+{
+    "categories": [
+      { "id": 1, "name": "Resort", "icon": "beach" },
+      { "id": 2, "name": "Homestay", "icon": "home" },
+      { "id": 3, "name": "Hotel", "icon": "building" },
+      { "id": 4, "name": "Lodge", "icon": "bed" }
+    ],
+    "destinations": [
+      { "id": 1, "url": "https://picsum.photos/200/140?1" },
+      { "id": 2, "url": "https://picsum.photos/200/140?2" },
+      { "id": 3, "url": "https://picsum.photos/200/140?3" },
+      { "id": 4, "url": "https://picsum.photos/200/140?4" }
+    ]
+}
+  

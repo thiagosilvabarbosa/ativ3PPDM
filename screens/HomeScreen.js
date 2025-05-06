@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  View,
-  StyleSheet,
-  ScrollView,
-  TextInput,
   SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
 } from 'react-native';
-import { Text, Avatar, Icon } from 'react-native-elements';
+import { Avatar, Icon, Text } from 'react-native-elements';
 
 const categories = [
   { name: 'Consultation', icon: 'account-circle-outline' },

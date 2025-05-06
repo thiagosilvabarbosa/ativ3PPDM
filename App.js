@@ -1,11 +1,10 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
 import { Icon } from 'react-native-elements';
 
-// Import das telas
-import HomeScreen from './screens/HomeScreen';
 import ExploreScreen from './screens/ExploreScreen';
+import HomeScreen from './screens/HomeScreen';
 import MessagesScreen from './screens/MessagesScreen';
 
 const Tab = createBottomTabNavigator();

@@ -1,40 +1,49 @@
 // ExploreScreen.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  View,
-  StyleSheet,
-  ScrollView,
-  TextInput,
   Image,
   SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
 } from 'react-native';
-import { Text, Avatar, Icon } from 'react-native-elements';
-
-const categories = [
-  { name: 'Resort', icon: 'beach' },
-  { name: 'Homestay', icon: 'home' },
-  { name: 'Hotel', icon: 'building' },
-  { name: 'Lodge', icon: 'bed' },
-  { name: 'Villa', icon: 'warehouse' },
-  { name: 'Apartement', icon: 'city' },
-  { name: 'Hostel', icon: 'hotel' },
-  { name: 'See all', icon: 'grid' },
-];
-
-const destinations = [
-  'https://picsum.photos/200/140?1',
-  'https://picsum.photos/200/140?2',
-  'https://picsum.photos/200/140?3',
-  'https://picsum.photos/200/140?4',
-];
+import { Avatar, Icon, Text } from 'react-native-elements';
 
 export default function ExploreScreen() {
+  const [categories, setCategories] = useState([]);
+  const [destinations, setDestinations] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const categoriesResponse = await fetch('http://localhost:3001/categories');
+        const categoriesData = await categoriesResponse.json();
+        setCategories(categoriesData);
+
+        const destinationsResponse = await fetch('http://localhost:3001/destinations');
+        const destinationsData = await destinationsResponse.json();
+        setDestinations(destinationsData);
+      } catch (err) {
+        console.error('Erro ao buscar dados:', err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <SafeAreaView style={styles.page}>
       <ScrollView contentContainerStyle={{ paddingBottom: 90 }}>
+        {/* Header */}
         <View style={styles.header}>
           <View style={styles.searchRow}>
-            <Icon name="waves" type="material-community" color="#fff" size={30} />
+            <Icon
+              name="waves"
+              type="material-community"
+              color="#fff"
+              size={30}
+            />
             <View style={styles.searchBox}>
               <TextInput
                 placeholder="Search here ..."
@@ -48,7 +57,9 @@ export default function ExploreScreen() {
           <View style={styles.welcomeRow}>
             <Avatar
               rounded
-              source={{ uri: 'https://randomuser.me/api/portraits/women/65.jpg' }}
+              source={{
+                uri: "https://randomuser.me/api/portraits/women/65.jpg",
+              }}
               size="medium"
             />
             <View style={{ marginLeft: 10 }}>
@@ -59,11 +70,12 @@ export default function ExploreScreen() {
               name="notifications-outline"
               type="ionicon"
               color="#fff"
-              style={{ marginLeft: 'auto' }}
+              style={{ marginLeft: "auto" }}
             />
           </View>
         </View>
 
+        {/* Categories */}
         <View style={styles.rowHeader}>
           <Text style={styles.sectionTitle}>Category</Text>
           <Icon name="menu" />
@@ -85,22 +97,25 @@ export default function ExploreScreen() {
           ))}
         </View>
 
+        {/* Popular Destinations */}
         <View style={styles.rowHeader}>
           <Text style={styles.sectionTitle}>Popular Destination</Text>
           <Icon name="menu" />
         </View>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {destinations.map((url, idx) => (
+          {destinations.map((item) => (
             <Image
-              key={idx}
-              source={{ uri: url }}
+              key={item.id}
+              source={{ uri: item.url }}
               style={styles.destinationImage}
             />
           ))}
         </ScrollView>
 
-        <Text style={[styles.sectionTitle, { marginTop: 20 }]}>Recommended</Text>
+        <Text style={[styles.sectionTitle, { marginTop: 20 }]}>
+          Recommended
+        </Text>
         <View style={styles.recommendContainer}>
           {destinations.slice(2).map((url, idx) => (
             <Image
@@ -117,7 +132,6 @@ export default function ExploreScreen() {
 
 const styles = StyleSheet.create({
   page: { flex: 1, backgroundColor: '#fff' },
-  scrollArea: { flex: 1, backgroundColor: '#fff' },
   header: {
     backgroundColor: '#5D5FEF',
     borderBottomLeftRadius: 30,
